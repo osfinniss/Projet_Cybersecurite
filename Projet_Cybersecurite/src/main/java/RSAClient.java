@@ -23,6 +23,17 @@ public class RSAClient {
             out.writeUTF(encryptedMessage.toString());
             System.out.println("Encrypted message sent to server.");
 
+            // Receive decrypted message from server
+            String decryptedMessage = in.readUTF();
+            System.out.println("Decrypted message received from server: " + decryptedMessage);
+
+            // Compare the original message with the decrypted message
+            if (message.equals(decryptedMessage)) {
+                System.out.println("The decrypted message matches the original message.");
+            } else {
+                System.out.println("The decrypted message does not match the original message.");
+            }
+
         } catch (IOException ex) {
             ex.printStackTrace();
         }

@@ -44,6 +44,9 @@ public class RSAServer {
             String message = new String(decryptedMessage.toByteArray());
             System.out.println("Decrypted message from client: " + message);
 
+            // Send decrypted message back to client
+            out.writeUTF(message);
+
             clientSocket.close();
         } catch (IOException ex) {
             ex.printStackTrace();
