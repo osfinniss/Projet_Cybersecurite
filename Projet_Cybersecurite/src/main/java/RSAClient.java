@@ -41,6 +41,6 @@ public class RSAClient {
 
     public static void main(String[] args) {
         RSAClient client = new RSAClient();
-        client.startClient("Hello Server!");
+        client.startClient("Projet Securite Rsa");
     }
 }
