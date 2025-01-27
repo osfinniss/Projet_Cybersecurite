@@ -11,27 +11,27 @@ public class RSAClient {
             DataOutputStream out = new DataOutputStream(socket.getOutputStream());
             DataInputStream in = new DataInputStream(socket.getInputStream());
 
-            // Receive public key from server
+            // Recevoir la clé publique du serveur
             BigInteger n = new BigInteger(in.readUTF());
             BigInteger e = new BigInteger(in.readUTF());
 
-            // Encrypt the message
+            // Chiffrer le message
             BigInteger numericMessage = new BigInteger(message.getBytes());
             BigInteger encryptedMessage = numericMessage.modPow(e, n);
 
-            // Send encrypted message to server
+            // Envoyer le message chiffré au serveur
             out.writeUTF(encryptedMessage.toString());
-            System.out.println("Encrypted message sent to server.");
+            System.out.println("Message chiffré envoyé au serveur.");
 
-            // Receive decrypted message from server
+            // Recevoir le message déchiffré du serveur
             String decryptedMessage = in.readUTF();
-            System.out.println("Decrypted message received from server: " + decryptedMessage);
+            System.out.println("Message déchiffré reçu du serveur : " + decryptedMessage);
 
-            // Compare the original message with the decrypted message
+            // Comparer le message original avec le message déchiffré
             if (message.equals(decryptedMessage)) {
-                System.out.println("The decrypted message matches the original message.");
+                System.out.println("Le message déchiffré correspond au message original.");
             } else {
-                System.out.println("The decrypted message does not match the original message.");
+                System.out.println("Le message déchiffré ne correspond pas au message original.");
             }
 
         } catch (IOException ex) {

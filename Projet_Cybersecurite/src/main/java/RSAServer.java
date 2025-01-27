@@ -24,27 +24,27 @@ public class RSAServer {
 
     public void startServer() {
         try (ServerSocket serverSocket = new ServerSocket(PORT)) {
-            System.out.println("RSA Server is running on port " + PORT);
+            System.out.println("Le serveur RSA fonctionne sur le port " + PORT);
             Socket clientSocket = serverSocket.accept();
-            System.out.println("Client connected.");
+            System.out.println("Client connecté.");
 
             DataOutputStream out = new DataOutputStream(clientSocket.getOutputStream());
             DataInputStream in = new DataInputStream(clientSocket.getInputStream());
 
-            // Send public key to client
+            // Envoyer la clé publique au client
             out.writeUTF(n.toString());
             out.writeUTF(e.toString());
 
-            // Receive encrypted message
+            // Recevoir le message chiffré
             String encryptedMessage = in.readUTF();
             BigInteger encryptedBigInt = new BigInteger(encryptedMessage);
 
-            // Decrypt message
+            // Déchiffrer le message
             BigInteger decryptedMessage = encryptedBigInt.modPow(d, n);
             String message = new String(decryptedMessage.toByteArray());
-            System.out.println("Decrypted message from client: " + message);
+            System.out.println("Message déchiffré du client : " + message);
 
-            // Send decrypted message back to client
+            // Envoyer le message déchiffré au client
             out.writeUTF(message);
 
             clientSocket.close();
